@@ -1,0 +1,2 @@
+# Typo
+The keyboard trainer
