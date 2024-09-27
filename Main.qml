@@ -10,45 +10,13 @@ Window {
     title: qsTr("Typo")
 
     Component.onCompleted: {
-        window.makeTask(window.task)
+        scene.load("ааа аа а о оо ооо о оо оо оо о")
     }
 
-    Component {
-        id: keyViewComponent
-        KeyView {
-            width: 40
-            height: 40
-        }
-    }
-
-    property string task: "ааа аа а о оо ооо"
-    property var keyViews: []
-
-    function makeTask(task) {
-        task.split("").forEach((item, index) => {
-            let keyView = keyViewComponent.createObject(scene, {x: index * (40 + 2), y: 0, text: item})
-            window.keyViews.push(keyView)
-        })
-    }
-
-    Item {
+    GameScene {
         id: scene
-        anchors.fill: parent
-        focus: true
-
-        Keys.onPressed: (event)=> {
-            if (keyViews.length != 0) {
-                var keyView = keyViews[0]
-                if (keyView.text === event.text) {
-                    keyView = keyViews.shift()
-                    keyView.hideAndDestroy()
-                } else {
-                    keyView.shake()
-                }
-            }
-        }
-
-        Keys.onReleased: (event)=> {
-        }
+        anchors.centerIn: parent
+        width: window.width * 0.9
+        height: window.height * 0.25
     }
 }
