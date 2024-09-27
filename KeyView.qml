@@ -5,6 +5,10 @@ Item {
     property alias text: key.text
     property bool isActive: false
 
+    function show() {
+        showAnimator.start()
+    }
+
     function shake() {
         shakeAnimator.start()
     }
@@ -16,18 +20,38 @@ Item {
     Rectangle {
         radius: 8
         anchors.fill: parent
-        border.color: root.isActive ? "darkorange": "darksalmon"
+        border.color: "darksalmon"
         border.width: 2
-        color: root.isActive ? "moccasin" : "bisque"
+        color: "bisque"
 
         Text {
             id: key
 
-            anchors.centerIn: parent
+            anchors.fill: parent
             font.bold: false
-            font.pixelSize: 32
+            font.pixelSize: Math.min(root.width, root.height) * 0.8
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
 
-            color: root.isActive ? "chocolate": "saddlebrown"
+            color: "saddlebrown"
+        }
+    }
+
+    ParallelAnimation {
+        id: showAnimator
+
+        OpacityAnimator {
+            target: root
+            from: 0
+            to: 1
+            duration: 200
+        }
+        ScaleAnimator {
+            target: root
+            from: 0.5
+            to: 1
+            duration: 200
+            easing.type: Easing.InQuad
         }
     }
 

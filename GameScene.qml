@@ -34,7 +34,8 @@ Item {
 
     function load(task) {
         task.split("").forEach((item, index) => {
-            let keyView = keyViewComponent.createObject(sceneView, {x: index * (d.keyWidth + d.keySpace), y: 0, text: item})
+            let keyView = keyViewComponent.createObject(sceneView, {x: index * (d.keyWidth + d.keySpace), y: 0, text: item, opacity: 0, scale: 0.8})
+            keyView.show()
             keyViews.push(keyView)
         })
         keyViews[0].isActive = true
