@@ -10,7 +10,7 @@ Window {
     title: qsTr("Typo")
 
     Component.onCompleted: {
-        scene.load("ааа аа а о оо ооо о оо оо оо о")
+        scene.load("ААА АА а о оо ООО о оо оо оо о")
     }
 
     GameScene {

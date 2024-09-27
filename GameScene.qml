@@ -42,6 +42,11 @@ Item {
     }
 
     Keys.onPressed: (event)=> {
+        if (event.text === "")
+        {
+            return
+        }
+
         if (keyViews.length !== 0) {
             var keyView = keyViews[0]
             if (keyView.text === event.text) {
