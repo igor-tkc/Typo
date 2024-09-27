@@ -3,6 +3,7 @@ import QtQuick
 Item {
     id: root
     property alias text: key.text
+    property bool isActive: false
 
     function shake() {
         shakeAnimator.start()
@@ -15,9 +16,9 @@ Item {
     Rectangle {
         radius: 8
         anchors.fill: parent
-        border.color: "darksalmon"
+        border.color: root.isActive ? "darkorange": "darksalmon"
         border.width: 2
-        color: "bisque"
+        color: root.isActive ? "moccasin" : "bisque"
 
         Text {
             id: key
@@ -26,7 +27,7 @@ Item {
             font.bold: false
             font.pixelSize: 32
 
-            color: "saddlebrown"
+            color: root.isActive ? "chocolate": "saddlebrown"
         }
     }
 

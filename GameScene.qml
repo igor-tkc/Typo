@@ -4,6 +4,8 @@ Item {
     id: scene
     focus: true
 
+    signal finished()
+
     QtObject {
         id: d
 
@@ -35,6 +37,7 @@ Item {
             let keyView = keyViewComponent.createObject(sceneView, {x: index * (d.keyWidth + d.keySpace), y: 0, text: item})
             keyViews.push(keyView)
         })
+        keyViews[0].isActive = true
     }
 
     Keys.onPressed: (event)=> {
@@ -43,6 +46,12 @@ Item {
             if (keyView.text === event.text) {
                 keyView = keyViews.shift()
                 keyView.hideAndDestroy()
+
+                if (keyViews.length !== 0) {
+                    keyViews[0].isActive = true
+                } else {
+                    scene.finished()
+                }
             } else {
                 keyView.shake()
             }
