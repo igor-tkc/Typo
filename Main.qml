@@ -9,8 +9,16 @@ Window {
     visible: true
     title: qsTr("Typo")
 
+    function generate_text(symbols, length) {
+        var result = ''
+        for(let i = 0; i < length; ++i) {
+            result += symbols[Math.floor(Math.random() * symbols.length)]
+        }
+        return result
+    }
+
     Component.onCompleted: {
-        scene.load("ААА АА а о оо ООО о оо оо оо о")
+        scene.load(generate_text(['а', 'о', ' '], 30))
     }
 
     GameScene {
@@ -20,7 +28,8 @@ Window {
         height: window.height * 0.25
 
         onFinished: {
-            scene.load("ааа аа а о оо ооо о оо оо оо о")
+            console.log(elapsedTime)
+            scene.load(generate_text(['а', 'о', ' '], 30))
         }
     }
 }

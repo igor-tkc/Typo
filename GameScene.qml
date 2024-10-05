@@ -4,7 +4,7 @@ Item {
     id: scene
     focus: true
 
-    signal finished()
+    signal finished(int elapsedTime)
 
     QtObject {
         id: d
@@ -39,6 +39,19 @@ Item {
             keyViews.push(keyView)
         })
         keyViews[0].isActive = true
+
+        start()
+    }
+
+    property var startTime
+    function start() {
+        startTime = new Date().getTime()
+    }
+
+    function stop() {
+        const elapsedTime = new Date().getTime() - startTime
+
+        scene.finished(elapsedTime)
     }
 
     Keys.onPressed: (event)=> {
@@ -56,7 +69,7 @@ Item {
                 if (keyViews.length !== 0) {
                     keyViews[0].isActive = true
                 } else {
-                    scene.finished()
+                    stop()
                 }
             } else {
                 keyView.shake()
