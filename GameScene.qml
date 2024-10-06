@@ -1,4 +1,5 @@
 import QtQuick
+import QtMultimedia
 
 Item {
     id: scene
@@ -15,6 +16,26 @@ Item {
         property int keyHeight: 40
         property int keySpace: 2
     }
+
+    SoundEffect {
+        id: typewriter1
+        volume: 0.1
+        source: "qrc:/sounds/typewriter-1.wav"
+    }
+
+    SoundEffect {
+        id: typewriter2
+        volume: 0.1
+        source: "qrc:/sounds/typewriter-2.wav"
+    }
+
+    SoundEffect {
+        id: typewriter3
+        volume: 0.1
+        source: "qrc:/sounds/typewriter-3.wav"
+    }
+
+    readonly property var typeWriterSoundEffects: [typewriter1, typewriter2, typewriter3]
 
     Rectangle {
         anchors.fill: parent
@@ -59,7 +80,16 @@ Item {
         scene.finished(elapsedTime, mistakes, size)
     }
 
+    property var typeWriterSoundEffect
+
     Keys.onPressed: (event)=> {
+        if (typeWriterSoundEffect) {
+            typeWriterSoundEffect.stop()
+        }
+
+        typeWriterSoundEffect = typeWriterSoundEffects[Math.floor(Math.random() * typeWriterSoundEffects.length)]
+        typeWriterSoundEffect.play()
+
         if (event.text === "")
         {
             return

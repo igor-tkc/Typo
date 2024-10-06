@@ -3,13 +3,16 @@ cmake_minimum_required(VERSION 3.16)
 project(Typo VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_AUTORCC ON)
 
 find_package(Qt6 6.5 REQUIRED COMPONENTS Quick)
 find_package(Qt6 6.5 REQUIRED COMPONENTS QuickControls2)
+find_package(Qt6 6.5 REQUIRED COMPONENTS Multimedia)
 
 qt_standard_project_setup(REQUIRES 6.5)
 
 qt_add_executable(appTypo
+    assets.qrc
     main.cpp
 )
 
@@ -38,6 +41,9 @@ target_link_libraries(appTypo
 )
 target_link_libraries(appTypo
     PRIVATE Qt6::QuickControls2
+)
+target_link_libraries(appTypo
+    PRIVATE Qt6::Multimedia
 )
 
 include(GNUInstallDirs)
