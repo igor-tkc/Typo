@@ -27,8 +27,8 @@ Window {
         width: window.width * 0.9
         height: window.height * 0.25
 
-        onFinished: {
-            console.log(elapsedTime)
+        onFinished: (elapsedTime, mistakes, size) => {
+            console.log(elapsedTime, mistakes, size)
             scene.load(generate_text(['а', 'о', ' '], 30))
         }
     }

@@ -4,7 +4,7 @@ Item {
     id: scene
     focus: true
 
-    signal finished(int elapsedTime)
+    signal finished(int elapsedTime, int mistakes, int size)
 
     QtObject {
         id: d
@@ -33,6 +33,7 @@ Item {
     property var keyViews: []
 
     function load(task) {
+        size = task.length
         task.split("").forEach((item, index) => {
             let keyView = keyViewComponent.createObject(sceneView, {x: index * (d.keyWidth + d.keySpace), y: 0, text: item, opacity: 0, scale: 0.8})
             keyView.show()
@@ -44,14 +45,18 @@ Item {
     }
 
     property var startTime
+    property int size: 0
+    property int mistakes: 0
+
     function start() {
         startTime = new Date().getTime()
+        mistakes = 0
     }
 
     function stop() {
         const elapsedTime = new Date().getTime() - startTime
 
-        scene.finished(elapsedTime)
+        scene.finished(elapsedTime, mistakes, size)
     }
 
     Keys.onPressed: (event)=> {
@@ -72,6 +77,7 @@ Item {
                     stop()
                 }
             } else {
+                mistakes++
                 keyView.shake()
             }
         }
