@@ -18,18 +18,22 @@ Window {
     }
 
     Component.onCompleted: {
-        scene.load(generate_text(['а', 'о', ' '], 30))
+        // scene.load(generate_text(['а', 'о', ' '], 30))
     }
 
-    GameScene {
-        id: scene
-        anchors.centerIn: parent
-        width: window.width * 0.9
-        height: window.height * 0.25
+    StatView {
 
-        onFinished: (elapsedTime, mistakes, size) => {
-            console.log(elapsedTime, mistakes, size)
-            scene.load(generate_text(['а', 'о', ' '], 30))
-        }
     }
+
+    // GameScene {
+    //     id: scene
+    //     anchors.centerIn: parent
+    //     width: window.width * 0.9
+    //     height: window.height * 0.25
+
+    //     onFinished: (elapsedTime, mistakes, size) => {
+    //         console.log(elapsedTime, mistakes, size)
+    //         scene.load(generate_text(['а', 'о', ' '], 30))
+    //     }
+    // }
 }

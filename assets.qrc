@@ -1,7 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>sounds/typewriter-1.wav</file>
-	<file>sounds/typewriter-2.wav</file>
-	<file>sounds/typewriter-3.wav</file>
+        <file>sounds/typewriter-2.wav</file>
+        <file>sounds/typewriter-3.wav</file>
     </qresource>
 </RCC>
