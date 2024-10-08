@@ -19,19 +19,19 @@ Item {
 
     SoundEffect {
         id: typewriter1
-        volume: 0.1
+        volume: 0.4
         source: "qrc:/sounds/typewriter-1.wav"
     }
 
     SoundEffect {
         id: typewriter2
-        volume: 0.1
+        volume: 0.4
         source: "qrc:/sounds/typewriter-2.wav"
     }
 
     SoundEffect {
         id: typewriter3
-        volume: 0.1
+        volume: 0.4
         source: "qrc:/sounds/typewriter-3.wav"
     }
 
