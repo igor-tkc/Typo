@@ -21,8 +21,19 @@ Window {
         // scene.load(generate_text(['а', 'о', ' '], 30))
     }
 
-    StatView {
+    Column {
+        StatView {
+            ratio: slider.value
+        }
 
+        Slider {
+            id: slider
+            width: 320
+            from: 0
+            to: 1
+            value: 0.3
+            stepSize: 0.01
+        }
     }
 
     // GameScene {
