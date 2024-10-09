@@ -4,13 +4,12 @@ import QtQuick.Controls
 
 Item {
     id: root
-    x: 100
-    y: 100
 
-    width: 320
-    height: root.width / 2
+    property int symbolsPerMinute: 0
+    property int maxSymbolsPerMinute: 300
 
-    property real ratio: 0.25
+    height: width / 2
+    property real ratio: Math.min(symbolsPerMinute / maxSymbolsPerMinute, 1.0)
     Behavior on ratio {
         NumberAnimation { duration: 200; easing.type: Easing.Linear }
     }
@@ -80,34 +79,34 @@ Item {
 
         Label {
             anchors.horizontalCenter: parent.horizontalCenter
-            font.pixelSize: 22
+            font.pixelSize: 16
             font.bold: true
             color: "black"
-            text: "80 зн./хв"
+            text: root.symbolsPerMinute + " зн./хв"
         }
         Label {
             anchors.horizontalCenter: parent.horizontalCenter
-            font.pixelSize: 16
+            font.pixelSize: 14
             color: "black"
             text: "Швидкість"
         }
 
-        Item { width: 1; height: 10 }
+        Item { width: 1; height: 4 }
 
         Label {
             anchors.horizontalCenter: parent.horizontalCenter
-            font.pixelSize: 22
+            font.pixelSize: 16
             font.bold: true
             color: "black"
             text: "99 %"
         }
         Label {
             anchors.horizontalCenter: parent.horizontalCenter
-            font.pixelSize: 16
+            font.pixelSize: 14
             color: "black"
             text: "Точність"
         }
 
-        Item { width: 1; height: 5 }
+        Item { width: 1; height: 2 }
     }
 }

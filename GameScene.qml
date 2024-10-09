@@ -5,6 +5,7 @@ Item {
     id: scene
     focus: true
 
+    signal changed(int elapsedTime, int mistakes, int size, int done)
     signal finished(int elapsedTime, int mistakes, int size)
 
     QtObject {
@@ -41,6 +42,7 @@ Item {
         anchors.fill: parent
         radius: 8
         color: "beige"
+        border.color: "darkGray"
     }
 
     Component {
@@ -67,10 +69,12 @@ Item {
 
     property var startTime
     property int size: 0
+    property int done: 0
     property int mistakes: 0
 
     function start() {
         startTime = new Date().getTime()
+        done = 0
         mistakes = 0
     }
 
@@ -78,6 +82,12 @@ Item {
         const elapsedTime = new Date().getTime() - startTime
 
         scene.finished(elapsedTime, mistakes, size)
+    }
+
+    function progress() {
+        const elapsedTime = new Date().getTime() - startTime
+
+        scene.changed(elapsedTime, mistakes, size, done)
     }
 
     property var typeWriterSoundEffect
@@ -101,6 +111,7 @@ Item {
                 keyView = keyViews.shift()
                 keyView.hideAndDestroy()
 
+                done++
                 if (keyViews.length !== 0) {
                     keyViews[0].isActive = true
                 } else {
@@ -110,6 +121,7 @@ Item {
                 mistakes++
                 keyView.shake()
             }
+            progress()
         }
     }
 

@@ -7,6 +7,7 @@ Window {
     width: 1260
     height: 400
     visible: true
+    color: "whitesmoke"
     title: qsTr("Typo")
 
     function generate_text(symbols, length) {
@@ -21,19 +22,12 @@ Window {
         scene.load(generate_text(['а', 'о', ' '], 30))
     }
 
-    Column {
-        StatView {
-            ratio: slider.value
-        }
-
-        Slider {
-            id: slider
-            width: 320
-            from: 0
-            to: 1
-            value: 0.3
-            stepSize: 0.01
-        }
+    StatView {
+        id: statView
+        width: 240
+        anchors.bottom: scene.top
+        anchors.bottomMargin: 8
+        anchors.horizontalCenter: scene.horizontalCenter
     }
 
     GameScene {
@@ -42,8 +36,11 @@ Window {
         width: window.width * 0.9
         height: window.height * 0.25
 
+        onChanged: (elapsedTime, mistakes, size, done) => {
+            statView.symbolsPerMinute = Math.floor((done / (elapsedTime / 1000 / 60)))
+        }
+
         onFinished: (elapsedTime, mistakes, size) => {
-            console.log(elapsedTime, mistakes, size)
             scene.load(generate_text(['а', 'о', ' '], 30))
         }
     }
