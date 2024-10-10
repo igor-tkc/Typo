@@ -5,8 +5,9 @@ Item {
     id: scene
     focus: true
 
-    signal changed(int elapsedTime, int mistakes, int size, int done)
-    signal finished(int elapsedTime, int mistakes, int size)
+    property bool soundEnabled: false
+    signal changed(int elapsedTime, int mistakes, int taskSize, int completedItems)
+    signal finished(int elapsedTime, int mistakes, int taskSize)
 
     QtObject {
         id: d
@@ -20,6 +21,7 @@ Item {
 
     SoundEffect {
         id: typewriter1
+
         volume: 0.4
         source: "qrc:/sounds/typewriter-1.wav"
     }
@@ -56,7 +58,7 @@ Item {
     property var keyViews: []
 
     function load(task) {
-        size = task.length
+        taskSize = task.length
         task.split("").forEach((item, index) => {
             let keyView = keyViewComponent.createObject(sceneView, {x: index * (d.keyWidth + d.keySpace), y: 0, text: item, opacity: 0, scale: 0.8})
             keyView.show()
@@ -68,37 +70,54 @@ Item {
     }
 
     property var startTime
-    property int size: 0
-    property int done: 0
+    property int taskSize: 0
+    property int completedItems: 0
     property int mistakes: 0
+
+    Timer {
+        id: timer
+        interval: 1000
+        running: true
+        repeat: true
+
+        onTriggered: {
+            scene.progress()
+        }
+    }
 
     function start() {
         startTime = new Date().getTime()
-        done = 0
+        completedItems = 0
         mistakes = 0
+
+        timer.start()
     }
 
     function stop() {
+        timer.stop()
+
         const elapsedTime = new Date().getTime() - startTime
 
-        scene.finished(elapsedTime, mistakes, size)
+        scene.finished(elapsedTime, mistakes, taskSize)
     }
 
     function progress() {
         const elapsedTime = new Date().getTime() - startTime
 
-        scene.changed(elapsedTime, mistakes, size, done)
+        scene.changed(elapsedTime, mistakes, taskSize, completedItems)
     }
 
     property var typeWriterSoundEffect
 
     Keys.onPressed: (event)=> {
-        if (typeWriterSoundEffect) {
-            typeWriterSoundEffect.stop()
-        }
+        if (scene.soundEnabled) {
+            if (typeWriterSoundEffect) {
+                typeWriterSoundEffect.stop()
+            }
 
-        typeWriterSoundEffect = typeWriterSoundEffects[Math.floor(Math.random() * typeWriterSoundEffects.length)]
-        typeWriterSoundEffect.play()
+            typeWriterSoundEffect = typeWriterSoundEffects[Math.floor(Math.random() * typeWriterSoundEffects.length)]
+            typeWriterSoundEffect.play()
+        }
 
         if (event.text === "")
         {
@@ -111,7 +130,7 @@ Item {
                 keyView = keyViews.shift()
                 keyView.hideAndDestroy()
 
-                done++
+                completedItems++
                 if (keyViews.length !== 0) {
                     keyViews[0].isActive = true
                 } else {

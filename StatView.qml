@@ -5,6 +5,7 @@ import QtQuick.Controls
 Item {
     id: root
 
+    property int accuracy: 100
     property int symbolsPerMinute: 0
     property int maxSymbolsPerMinute: 300
 
@@ -98,7 +99,7 @@ Item {
             font.pixelSize: 16
             font.bold: true
             color: "black"
-            text: "99 %"
+            text: root.accuracy + " %"
         }
         Label {
             anchors.horizontalCenter: parent.horizontalCenter

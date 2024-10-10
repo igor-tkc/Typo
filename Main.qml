@@ -30,17 +30,25 @@ Window {
         anchors.horizontalCenter: scene.horizontalCenter
     }
 
+    property int totalCompletedItems: 0
+    property int totalMistakes: 0
+    property int totalElapseTime: 0
+
     GameScene {
         id: scene
         anchors.centerIn: parent
         width: window.width * 0.9
         height: window.height * 0.25
 
-        onChanged: (elapsedTime, mistakes, size, done) => {
-            statView.symbolsPerMinute = Math.floor((done / (elapsedTime / 1000 / 60)))
+        onChanged: (elapsedTime, mistakes, taskSize, completedItems) => {
+            statView.accuracy = Math.round(100 * (1.0 - (totalMistakes + mistakes) / (totalCompletedItems + completedItems)))
+            statView.symbolsPerMinute = Math.floor(((totalCompletedItems + completedItems) / ((totalElapseTime + elapsedTime) / 1000 / 60)))
         }
 
-        onFinished: (elapsedTime, mistakes, size) => {
+        onFinished: (elapsedTime, mistakes, taskSize) => {
+            totalMistakes += mistakes
+            totalCompletedItems += taskSize
+            totalElapseTime += elapsedTime
             scene.load(generate_text(['а', 'о', ' '], 30))
         }
     }
