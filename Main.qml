@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Controls
+import QtQuick.Controls.Material
 
 Window {
     id: window
@@ -7,8 +8,12 @@ Window {
     width: 1260
     height: 400
     visible: true
-    color: "whitesmoke"
+    color: "#444546"
     title: qsTr("Typo")
+
+    Material.theme: Material.Dark
+    Material.accent: Material.Amber
+
 
     function generate_text(symbols, length) {
         var result = ''
@@ -20,6 +25,38 @@ Window {
 
     Component.onCompleted: {
         scene.load(generate_text(['а', 'о', ' '], 30))
+    }
+
+    Row {
+        anchors.right: parent.right
+        anchors.topMargin: 4
+        anchors.rightMargin: 4
+
+        spacing: 4
+
+        Button {
+            id: musicToggleButton
+            checkable: true
+            icon.source: checked ? "qrc:/images/music_on.svg" : "qrc:/images/music_off.svg"
+        }
+
+        Button {
+            id: infoButton
+            icon.source: "qrc:/images/info.svg"
+        }
+    }
+
+    Image {
+        id: stateImage
+        width: 96
+        height: 96
+
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 8
+        sourceSize.width: 96
+        sourceSize.height: 96
+        source: "qrc:/images/relax.svg"
     }
 
     StatView {
