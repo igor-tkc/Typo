@@ -46,17 +46,14 @@ Window {
         }
     }
 
-    Image {
-        id: stateImage
-        width: 96
-        height: 96
+    ProgressView {
+        id: progressView
+        width: 48
+        height: 48
 
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 8
-        sourceSize.width: 96
-        sourceSize.height: 96
-        source: "qrc:/images/relax.svg"
     }
 
     StatView {

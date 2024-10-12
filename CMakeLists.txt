@@ -24,6 +24,7 @@ qt_add_qml_module(appTypo
 	QML_FILES KeyView.qml
 	QML_FILES GameScene.qml
 	QML_FILES StatView.qml
+	QML_FILES ProgressView.qml
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

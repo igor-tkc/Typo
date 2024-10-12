@@ -3,15 +3,15 @@
         <file>sounds/typewriter-1.wav</file>
         <file>sounds/typewriter-2.wav</file>
         <file>sounds/typewriter-3.wav</file>
-	<file>images/music_on.svg</file>
-	<file>images/music_off.svg</file>
-	<file>images/info.svg</file>
-	<file>images/restart.svg</file>
-	<file>images/relax.svg</file>
-	<file>images/walk.svg</file>
-	<file>images/run.svg</file>
-	<file>images/bike.svg</file>
-	<file>images/car.svg</file>
-	<file>images/rocket.svg</file>
+        <file>images/music_on.svg</file>
+        <file>images/music_off.svg</file>
+        <file>images/info.svg</file>
+        <file>images/restart.svg</file>
+	<file>images/pause.svg</file>
+        <file>images/walk.svg</file>
+        <file>images/run.svg</file>
+        <file>images/bike.svg</file>
+        <file>images/car.svg</file>
+        <file>images/rocket.svg</file>
     </qresource>
 </RCC>
