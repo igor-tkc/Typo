@@ -14,6 +14,8 @@ Window {
     Material.theme: Material.Dark
     Material.accent: Material.Amber
 
+    readonly property var ua_letters: ['а', 'о', 'л', 'в', 'м', 'и', 'н', 'т', 'р', 'к', 'е', 'с', 'у', 'і', 'й', 'п', 'д', 'з', 'б', 'г', 'ї', 'ж', 'х', 'є', 'ч', 'щ', 'ш', 'ґ', 'ф', 'ю', 'ц', 'ь', 'я']
+    property int level: 2
 
     function generate_text(symbols, length) {
         var result = ''
@@ -24,7 +26,14 @@ Window {
     }
 
     Component.onCompleted: {
-        scene.load(generate_text(['а', 'о', ' '], 30))
+        scene.load(generate_text(makeTask(), 30))
+    }
+
+    function makeTask() {
+        var letters = ua_letters.slice(0, window.level)
+        letters.push(' ')
+
+        return letters
     }
 
     Row {
@@ -46,21 +55,11 @@ Window {
         }
     }
 
-    ProgressView {
-        id: progressView
-        width: 48
-        height: 48
-
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 8
-    }
-
     StatView {
         id: statView
         width: 240
         anchors.bottom: scene.top
-        anchors.bottomMargin: 8
+        anchors.bottomMargin: -1
         anchors.horizontalCenter: scene.horizontalCenter
     }
 
@@ -83,7 +82,13 @@ Window {
             totalMistakes += mistakes
             totalCompletedItems += taskSize
             totalElapseTime += elapsedTime
-            scene.load(generate_text(['а', 'о', ' '], 30))
+
+            if (statView.symbolsPerMinute > 90 && statView.accuracy > 80) {
+                window.level++
+                window.level = Math.min(Math.max(2, window.level), window.ua_letters.length - 1)
+            }
+
+            scene.load(generate_text(makeTask(), 30))
         }
     }
 }

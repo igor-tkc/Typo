@@ -89,8 +89,6 @@ Item {
         startTime = new Date().getTime()
         completedItems = 0
         mistakes = 0
-
-        timer.start()
     }
 
     function stop() {
@@ -110,6 +108,10 @@ Item {
     property var typeWriterSoundEffect
 
     Keys.onPressed: (event)=> {
+        if (!timer.running) {
+             timer.start()
+        }
+
         if (scene.soundEnabled) {
             if (typeWriterSoundEffect) {
                 typeWriterSoundEffect.stop()

@@ -5,7 +5,7 @@ import QtQuick.Controls
 Item {
     id: root
 
-    property int accuracy: 100
+    property int accuracy: 0
     property int symbolsPerMinute: 0
     property int maxSymbolsPerMinute: 300
 
@@ -108,6 +108,6 @@ Item {
             text: "Точність"
         }
 
-        Item { width: 1; height: 2 }
+        Item { width: 1; height: 4 }
     }
 }
