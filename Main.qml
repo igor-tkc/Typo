@@ -74,14 +74,14 @@ Window {
         height: window.height * 0.25
 
         onChanged: (elapsedTime, mistakes, taskSize, completedItems) => {
-            statView.accuracy = Math.round(100 * (1.0 - (totalMistakes + mistakes) / (totalCompletedItems + completedItems)))
-            statView.symbolsPerMinute = Math.floor(((totalCompletedItems + completedItems) / ((totalElapseTime + elapsedTime) / 1000 / 60)))
+            statView.accuracy = Math.round(100 * (1.0 - (window.totalMistakes + mistakes) / (window.totalCompletedItems + completedItems)))
+            statView.symbolsPerMinute = Math.floor(((window.totalCompletedItems + completedItems) / ((window.totalElapseTime + elapsedTime) / 1000 / 60)))
         }
 
         onFinished: (elapsedTime, mistakes, taskSize) => {
-            totalMistakes += mistakes
-            totalCompletedItems += taskSize
-            totalElapseTime += elapsedTime
+            window.totalMistakes += mistakes
+            window.totalCompletedItems += taskSize
+            window.totalElapseTime += elapsedTime
 
             if (statView.symbolsPerMinute > 90 && statView.accuracy > 80) {
                 window.level++
