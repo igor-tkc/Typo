@@ -40,6 +40,7 @@ Window {
         anchors.right: parent.right
         anchors.topMargin: 4
         anchors.rightMargin: 4
+        visible: false
 
         spacing: 4
 
